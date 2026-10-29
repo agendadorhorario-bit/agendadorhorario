@@ -720,17 +720,26 @@ public class CalendarioView extends VerticalLayout implements BeforeEnterObserve
     }
 
     private Set<LocalDate> carregarDiasDesabilitados() {
-        Set<String> dias = agendaService.listarDiasDesabilitados();
         Set<LocalDate> datas = new HashSet<LocalDate>();
-        for (String dia : dias) {
-            if (dia == null || dia.isBlank()) {
-                continue;
+        try {
+            Set<String> dias = agendaService.listarDiasDesabilitados();
+            for (String dia : dias) {
+                if (dia == null || dia.isBlank()) {
+                    continue;
+                }
+                try {
+                    datas.add(LocalDate.parse(dia));
+                } catch (DateTimeParseException ignored) {
+                    // Ignora valor invalido legado no banco.
+                }
             }
-            try {
-                datas.add(LocalDate.parse(dia));
-            } catch (DateTimeParseException ignored) {
-                // Ignora valor invalido legado no banco.
-            }
+        } catch (RuntimeException ex) {
+            Notification notification = Notification.show(
+                    "Nao foi possivel carregar dias desabilitados. Verifique a conexao com o banco.",
+                    4500,
+                    Notification.Position.TOP_CENTER
+            );
+            notification.addThemeVariants(NotificationVariant.LUMO_WARNING);
         }
         return datas;
     }
