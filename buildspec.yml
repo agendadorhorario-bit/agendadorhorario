@@ -1,0 +1,29 @@
+
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: "sa-east-1"
+    IMAGE_REPO_NAME: "agendador"
+
+phases:
+  pre_build:
+    commands:
+      - echo "Autenticando no Amazon ECR"
+      - ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - ECR_URI=$ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_URI
+
+  build:
+    commands:
+      - echo "Compilando projeto Spring Boot"
+      - chmod +x mvnw
+      - ./mvnw clean package -DskipTests
+      - echo "Construindo imagem Docker"
+      - docker build -t $IMAGE_REPO_NAME .
+      - docker tag $IMAGE_REPO_NAME:latest $ECR_URI/$IMAGE_REPO_NAME:latest
+
+  post_build:
+    commands:
+      - docker push $ECR_URI/$IMAGE_REPO_NAME:latest
+      - echo "Imagem enviada para o ECR"
