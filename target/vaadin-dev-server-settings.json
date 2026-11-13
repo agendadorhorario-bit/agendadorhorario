@@ -1,0 +1,17 @@
+{
+  "frontendFolder": "C:/projeto/agendador/agendador/agendador/./src/main/frontend",
+  "themeFolder": "themes",
+  "themeResourceFolder": "C:/projeto/agendador/agendador/agendador/./src/main/frontend/generated/jar-resources",
+  "staticOutput": "C:/projeto/agendador/agendador/agendador/target/classes/META-INF/VAADIN/webapp/VAADIN/static",
+  "generatedFolder": "generated",
+  "statsOutput": "C:\\projeto\\agendador\\agendador\\agendador\\target\\classes\\META-INF\\VAADIN\\config",
+  "frontendBundleOutput": "C:\\projeto\\agendador\\agendador\\agendador\\target\\classes\\META-INF\\VAADIN\\webapp",
+  "devBundleOutput": "C:/projeto/agendador/agendador/agendador/target/dev-bundle/webapp",
+  "devBundleStatsOutput": "C:/projeto/agendador/agendador/agendador/target/dev-bundle/config",
+  "jarResourcesFolder": "C:/projeto/agendador/agendador/agendador/./src/main/frontend/generated/jar-resources",
+  "themeName": "",
+  "clientServiceWorkerSource": "C:\\projeto\\agendador\\agendador\\agendador\\target\\sw.ts",
+  "pwaEnabled": false,
+  "offlineEnabled": false,
+  "offlinePath": "'offline.html'"
+}
